@@ -1,3 +1,8 @@
+DRIVERS := $(wildcard drivers/*.jar)
+JARPATH := $(subst $(space),:,$(DRIVERS))
+space := $(null) $(null)
+
 %:
 	mkdir -p build
-	javac $@.java -d build && cd build && java $@ && cd ..
+	javac -d build -cp "$(JARPATH)" $@.java
+	cd build && java -cp ".:../$(JARPATH)" $@
